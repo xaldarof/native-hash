@@ -77,6 +77,795 @@ class NativeHashBindings {
               ffi.Pointer<SHA256_CTX>, ffi.Pointer<BYTE>)>>('sha256_final');
   late final _sha256_final = _sha256_finalPtr
       .asFunction<void Function(ffi.Pointer<SHA256_CTX>, ffi.Pointer<BYTE>)>();
+
+  /// FUNCTION DECLARATIONS **********************/
+  /// ///////////////////
+  /// // AES
+  /// ///////////////////
+  /// // Key setup must be done before any AES en/de-cryption functions can be used.
+  void aes_key_setup(
+    ffi.Pointer<BYTE1> key,
+    ffi.Pointer<WORD1> w,
+    int keysize,
+  ) {
+    return _aes_key_setup(
+      key,
+      w,
+      keysize,
+    );
+  }
+
+  late final _aes_key_setupPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<BYTE1>, ffi.Pointer<WORD1>,
+              ffi.Int)>>('aes_key_setup');
+  late final _aes_key_setup = _aes_key_setupPtr
+      .asFunction<void Function(ffi.Pointer<BYTE1>, ffi.Pointer<WORD1>, int)>();
+
+  void aes_encrypt(
+    ffi.Pointer<BYTE1> in1,
+    ffi.Pointer<BYTE1> out,
+    ffi.Pointer<WORD1> key,
+    int keysize,
+  ) {
+    return _aes_encrypt(
+      in1,
+      out,
+      key,
+      keysize,
+    );
+  }
+
+  late final _aes_encryptPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<BYTE1>, ffi.Pointer<BYTE1>,
+              ffi.Pointer<WORD1>, ffi.Int)>>('aes_encrypt');
+  late final _aes_encrypt = _aes_encryptPtr.asFunction<
+      void Function(
+          ffi.Pointer<BYTE1>, ffi.Pointer<BYTE1>, ffi.Pointer<WORD1>, int)>();
+
+  void aes_decrypt(
+    ffi.Pointer<BYTE1> in1,
+    ffi.Pointer<BYTE1> out,
+    ffi.Pointer<WORD1> key,
+    int keysize,
+  ) {
+    return _aes_decrypt(
+      in1,
+      out,
+      key,
+      keysize,
+    );
+  }
+
+  late final _aes_decryptPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<BYTE1>, ffi.Pointer<BYTE1>,
+              ffi.Pointer<WORD1>, ffi.Int)>>('aes_decrypt');
+  late final _aes_decrypt = _aes_decryptPtr.asFunction<
+      void Function(
+          ffi.Pointer<BYTE1>, ffi.Pointer<BYTE1>, ffi.Pointer<WORD1>, int)>();
+
+  /// ////////////////
+  /// AES - CBC
+  /// ////////////////
+  int aes_encrypt_cbc(
+    ffi.Pointer<BYTE1> in1,
+    int in_len,
+    ffi.Pointer<BYTE1> out,
+    ffi.Pointer<WORD1> key,
+    int keysize,
+    ffi.Pointer<BYTE1> iv,
+  ) {
+    return _aes_encrypt_cbc(
+      in1,
+      in_len,
+      out,
+      key,
+      keysize,
+      iv,
+    );
+  }
+
+  late final _aes_encrypt_cbcPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<BYTE1>,
+              ffi.Size,
+              ffi.Pointer<BYTE1>,
+              ffi.Pointer<WORD1>,
+              ffi.Int,
+              ffi.Pointer<BYTE1>)>>('aes_encrypt_cbc');
+  late final _aes_encrypt_cbc = _aes_encrypt_cbcPtr.asFunction<
+      int Function(ffi.Pointer<BYTE1>, int, ffi.Pointer<BYTE1>,
+          ffi.Pointer<WORD1>, int, ffi.Pointer<BYTE1>)>();
+
+  /// Only output the CBC-MAC of the input.
+  int aes_encrypt_cbc_mac(
+    ffi.Pointer<BYTE1> in1,
+    int in_len,
+    ffi.Pointer<BYTE1> out,
+    ffi.Pointer<WORD1> key,
+    int keysize,
+    ffi.Pointer<BYTE1> iv,
+  ) {
+    return _aes_encrypt_cbc_mac(
+      in1,
+      in_len,
+      out,
+      key,
+      keysize,
+      iv,
+    );
+  }
+
+  late final _aes_encrypt_cbc_macPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<BYTE1>,
+              ffi.Size,
+              ffi.Pointer<BYTE1>,
+              ffi.Pointer<WORD1>,
+              ffi.Int,
+              ffi.Pointer<BYTE1>)>>('aes_encrypt_cbc_mac');
+  late final _aes_encrypt_cbc_mac = _aes_encrypt_cbc_macPtr.asFunction<
+      int Function(ffi.Pointer<BYTE1>, int, ffi.Pointer<BYTE1>,
+          ffi.Pointer<WORD1>, int, ffi.Pointer<BYTE1>)>();
+
+  /// ////////////////
+  /// AES - CTR
+  /// ////////////////
+  void increment_iv(
+    ffi.Pointer<BYTE1> iv,
+    int counter_size,
+  ) {
+    return _increment_iv(
+      iv,
+      counter_size,
+    );
+  }
+
+  late final _increment_ivPtr = _lookup<
+          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<BYTE1>, ffi.Int)>>(
+      'increment_iv');
+  late final _increment_iv =
+      _increment_ivPtr.asFunction<void Function(ffi.Pointer<BYTE1>, int)>();
+
+  void aes_encrypt_ctr(
+    ffi.Pointer<BYTE1> in1,
+    int in_len,
+    ffi.Pointer<BYTE1> out,
+    ffi.Pointer<WORD1> key,
+    int keysize,
+    ffi.Pointer<BYTE1> iv,
+  ) {
+    return _aes_encrypt_ctr(
+      in1,
+      in_len,
+      out,
+      key,
+      keysize,
+      iv,
+    );
+  }
+
+  late final _aes_encrypt_ctrPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<BYTE1>,
+              ffi.Size,
+              ffi.Pointer<BYTE1>,
+              ffi.Pointer<WORD1>,
+              ffi.Int,
+              ffi.Pointer<BYTE1>)>>('aes_encrypt_ctr');
+  late final _aes_encrypt_ctr = _aes_encrypt_ctrPtr.asFunction<
+      void Function(ffi.Pointer<BYTE1>, int, ffi.Pointer<BYTE1>,
+          ffi.Pointer<WORD1>, int, ffi.Pointer<BYTE1>)>();
+
+  void aes_decrypt_ctr(
+    ffi.Pointer<BYTE1> in1,
+    int in_len,
+    ffi.Pointer<BYTE1> out,
+    ffi.Pointer<WORD1> key,
+    int keysize,
+    ffi.Pointer<BYTE1> iv,
+  ) {
+    return _aes_decrypt_ctr(
+      in1,
+      in_len,
+      out,
+      key,
+      keysize,
+      iv,
+    );
+  }
+
+  late final _aes_decrypt_ctrPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<BYTE1>,
+              ffi.Size,
+              ffi.Pointer<BYTE1>,
+              ffi.Pointer<WORD1>,
+              ffi.Int,
+              ffi.Pointer<BYTE1>)>>('aes_decrypt_ctr');
+  late final _aes_decrypt_ctr = _aes_decrypt_ctrPtr.asFunction<
+      void Function(ffi.Pointer<BYTE1>, int, ffi.Pointer<BYTE1>,
+          ffi.Pointer<WORD1>, int, ffi.Pointer<BYTE1>)>();
+
+  /// ////////////////
+  /// AES - CCM
+  /// ////////////////
+  /// Returns True if the input parameters do not violate any constraint.
+  int aes_encrypt_ccm(
+    ffi.Pointer<BYTE1> plaintext,
+    int plaintext_len,
+    ffi.Pointer<BYTE1> associated_data,
+    int associated_data_len,
+    ffi.Pointer<BYTE1> nonce,
+    int nonce_len,
+    ffi.Pointer<BYTE1> ciphertext,
+    ffi.Pointer<WORD1> ciphertext_len,
+    int mac_len,
+    ffi.Pointer<BYTE1> key,
+    int keysize,
+  ) {
+    return _aes_encrypt_ccm(
+      plaintext,
+      plaintext_len,
+      associated_data,
+      associated_data_len,
+      nonce,
+      nonce_len,
+      ciphertext,
+      ciphertext_len,
+      mac_len,
+      key,
+      keysize,
+    );
+  }
+
+  late final _aes_encrypt_ccmPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<BYTE1>,
+              WORD1,
+              ffi.Pointer<BYTE1>,
+              ffi.UnsignedShort,
+              ffi.Pointer<BYTE1>,
+              ffi.UnsignedShort,
+              ffi.Pointer<BYTE1>,
+              ffi.Pointer<WORD1>,
+              WORD1,
+              ffi.Pointer<BYTE1>,
+              ffi.Int)>>('aes_encrypt_ccm');
+  late final _aes_encrypt_ccm = _aes_encrypt_ccmPtr.asFunction<
+      int Function(
+          ffi.Pointer<BYTE1>,
+          int,
+          ffi.Pointer<BYTE1>,
+          int,
+          ffi.Pointer<BYTE1>,
+          int,
+          ffi.Pointer<BYTE1>,
+          ffi.Pointer<WORD1>,
+          int,
+          ffi.Pointer<BYTE1>,
+          int)>();
+
+  /// Returns True if the input parameters do not violate any constraint.
+  /// Use mac_auth to ensure decryption/validation was preformed correctly.
+  /// If authentication does not succeed, the plaintext is zeroed out. To overwride
+  /// this, call with mac_auth = NULL. The proper proceedure is to decrypt with
+  /// authentication enabled (mac_auth != NULL) and make a second call to that
+  /// ignores authentication explicitly if the first call failes.
+  int aes_decrypt_ccm(
+    ffi.Pointer<BYTE1> ciphertext,
+    int ciphertext_len,
+    ffi.Pointer<BYTE1> assoc,
+    int assoc_len,
+    ffi.Pointer<BYTE1> nonce,
+    int nonce_len,
+    ffi.Pointer<BYTE1> plaintext,
+    ffi.Pointer<WORD1> plaintext_len,
+    int mac_len,
+    ffi.Pointer<ffi.Int> mac_auth,
+    ffi.Pointer<BYTE1> key,
+    int keysize,
+  ) {
+    return _aes_decrypt_ccm(
+      ciphertext,
+      ciphertext_len,
+      assoc,
+      assoc_len,
+      nonce,
+      nonce_len,
+      plaintext,
+      plaintext_len,
+      mac_len,
+      mac_auth,
+      key,
+      keysize,
+    );
+  }
+
+  late final _aes_decrypt_ccmPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<BYTE1>,
+              WORD1,
+              ffi.Pointer<BYTE1>,
+              ffi.UnsignedShort,
+              ffi.Pointer<BYTE1>,
+              ffi.UnsignedShort,
+              ffi.Pointer<BYTE1>,
+              ffi.Pointer<WORD1>,
+              WORD1,
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<BYTE1>,
+              ffi.Int)>>('aes_decrypt_ccm');
+  late final _aes_decrypt_ccm = _aes_decrypt_ccmPtr.asFunction<
+      int Function(
+          ffi.Pointer<BYTE1>,
+          int,
+          ffi.Pointer<BYTE1>,
+          int,
+          ffi.Pointer<BYTE1>,
+          int,
+          ffi.Pointer<BYTE1>,
+          ffi.Pointer<WORD1>,
+          int,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<BYTE1>,
+          int)>();
+
+  /// ////////////////
+  /// Test functions
+  /// ////////////////
+  int aes_test() {
+    return _aes_test();
+  }
+
+  late final _aes_testPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('aes_test');
+  late final _aes_test = _aes_testPtr.asFunction<int Function()>();
+
+  int aes_ecb_test() {
+    return _aes_ecb_test();
+  }
+
+  late final _aes_ecb_testPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('aes_ecb_test');
+  late final _aes_ecb_test = _aes_ecb_testPtr.asFunction<int Function()>();
+
+  int aes_cbc_test() {
+    return _aes_cbc_test();
+  }
+
+  late final _aes_cbc_testPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('aes_cbc_test');
+  late final _aes_cbc_test = _aes_cbc_testPtr.asFunction<int Function()>();
+
+  int aes_ctr_test() {
+    return _aes_ctr_test();
+  }
+
+  late final _aes_ctr_testPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('aes_ctr_test');
+  late final _aes_ctr_test = _aes_ctr_testPtr.asFunction<int Function()>();
+
+  int aes_ccm_test() {
+    return _aes_ccm_test();
+  }
+
+  late final _aes_ccm_testPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('aes_ccm_test');
+  late final _aes_ccm_test = _aes_ccm_testPtr.asFunction<int Function()>();
+
+  /// FUNCTION DECLARATIONS **********************/
+  /// // Input: state - the state used to generate the keystream
+  /// //        key - Key to use to initialize the state
+  /// //        len - length of key in bytes (valid lenth is 1 to 256)
+  void arcfour_key_setup(
+    ffi.Pointer<BYTE2> state,
+    ffi.Pointer<BYTE2> key,
+    int len,
+  ) {
+    return _arcfour_key_setup(
+      state,
+      key,
+      len,
+    );
+  }
+
+  late final _arcfour_key_setupPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<BYTE2>, ffi.Pointer<BYTE2>,
+              ffi.Int)>>('arcfour_key_setup');
+  late final _arcfour_key_setup = _arcfour_key_setupPtr
+      .asFunction<void Function(ffi.Pointer<BYTE2>, ffi.Pointer<BYTE2>, int)>();
+
+  /// Pseudo-Random Generator Algorithm
+  /// Input: state - the state used to generate the keystream
+  /// out - Must be allocated to be of at least "len" length
+  /// len - number of bytes to generate
+  void arcfour_generate_stream(
+    ffi.Pointer<BYTE2> state,
+    ffi.Pointer<BYTE2> out,
+    int len,
+  ) {
+    return _arcfour_generate_stream(
+      state,
+      out,
+      len,
+    );
+  }
+
+  late final _arcfour_generate_streamPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<BYTE2>, ffi.Pointer<BYTE2>,
+              ffi.Size)>>('arcfour_generate_stream');
+  late final _arcfour_generate_stream = _arcfour_generate_streamPtr
+      .asFunction<void Function(ffi.Pointer<BYTE2>, ffi.Pointer<BYTE2>, int)>();
+
+  /// FUNCTION DECLARATIONS **********************/
+  /// // Returns the size of the output. If called with out = NULL, will just return
+  /// // the size of what the output would have been (without a terminating NULL).
+  int base64_encode(
+    ffi.Pointer<BYTE3> in1,
+    ffi.Pointer<BYTE3> out,
+    int len,
+    int newline_flag,
+  ) {
+    return _base64_encode(
+      in1,
+      out,
+      len,
+      newline_flag,
+    );
+  }
+
+  late final _base64_encodePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Size Function(ffi.Pointer<BYTE3>, ffi.Pointer<BYTE3>, ffi.Size,
+              ffi.Int)>>('base64_encode');
+  late final _base64_encode = _base64_encodePtr.asFunction<
+      int Function(ffi.Pointer<BYTE3>, ffi.Pointer<BYTE3>, int, int)>();
+
+  /// Returns the size of the output. If called with out = NULL, will just return
+  /// the size of what the output would have been (without a terminating NULL).
+  int base64_decode(
+    ffi.Pointer<BYTE3> in1,
+    ffi.Pointer<BYTE3> out,
+    int len,
+  ) {
+    return _base64_decode(
+      in1,
+      out,
+      len,
+    );
+  }
+
+  late final _base64_decodePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Size Function(ffi.Pointer<BYTE3>, ffi.Pointer<BYTE3>,
+              ffi.Size)>>('base64_decode');
+  late final _base64_decode = _base64_decodePtr
+      .asFunction<int Function(ffi.Pointer<BYTE3>, ffi.Pointer<BYTE3>, int)>();
+
+  /// FUNCTION DECLARATIONS
+  void blowfish_key_setup(
+    ffi.Pointer<BYTE4> user_key,
+    ffi.Pointer<BLOWFISH_KEY> keystruct,
+    int len,
+  ) {
+    return _blowfish_key_setup(
+      user_key,
+      keystruct,
+      len,
+    );
+  }
+
+  late final _blowfish_key_setupPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<BYTE4>, ffi.Pointer<BLOWFISH_KEY>,
+              ffi.Size)>>('blowfish_key_setup');
+  late final _blowfish_key_setup = _blowfish_key_setupPtr.asFunction<
+      void Function(ffi.Pointer<BYTE4>, ffi.Pointer<BLOWFISH_KEY>, int)>();
+
+  void blowfish_encrypt(
+    ffi.Pointer<BYTE4> in1,
+    ffi.Pointer<BYTE4> out,
+    ffi.Pointer<BLOWFISH_KEY> keystruct,
+  ) {
+    return _blowfish_encrypt(
+      in1,
+      out,
+      keystruct,
+    );
+  }
+
+  late final _blowfish_encryptPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<BYTE4>, ffi.Pointer<BYTE4>,
+              ffi.Pointer<BLOWFISH_KEY>)>>('blowfish_encrypt');
+  late final _blowfish_encrypt = _blowfish_encryptPtr.asFunction<
+      void Function(
+          ffi.Pointer<BYTE4>, ffi.Pointer<BYTE4>, ffi.Pointer<BLOWFISH_KEY>)>();
+
+  void blowfish_decrypt(
+    ffi.Pointer<BYTE4> in1,
+    ffi.Pointer<BYTE4> out,
+    ffi.Pointer<BLOWFISH_KEY> keystruct,
+  ) {
+    return _blowfish_decrypt(
+      in1,
+      out,
+      keystruct,
+    );
+  }
+
+  late final _blowfish_decryptPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<BYTE4>, ffi.Pointer<BYTE4>,
+              ffi.Pointer<BLOWFISH_KEY>)>>('blowfish_decrypt');
+  late final _blowfish_decrypt = _blowfish_decryptPtr.asFunction<
+      void Function(
+          ffi.Pointer<BYTE4>, ffi.Pointer<BYTE4>, ffi.Pointer<BLOWFISH_KEY>)>();
+
+  /// FUNCTION DECLARATIONS
+  void des_key_setup(
+    ffi.Pointer<BYTE5> key,
+    ffi.Pointer<ffi.Pointer<BYTE5>> schedule,
+    int mode,
+  ) {
+    return _des_key_setup(
+      key,
+      schedule,
+      mode,
+    );
+  }
+
+  late final _des_key_setupPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<BYTE5>, ffi.Pointer<ffi.Pointer<BYTE5>>,
+              ffi.Int32)>>('des_key_setup');
+  late final _des_key_setup = _des_key_setupPtr.asFunction<
+      void Function(
+          ffi.Pointer<BYTE5>, ffi.Pointer<ffi.Pointer<BYTE5>>, int)>();
+
+  void des_crypt(
+    ffi.Pointer<BYTE5> in1,
+    ffi.Pointer<BYTE5> out,
+    ffi.Pointer<ffi.Pointer<BYTE5>> key,
+  ) {
+    return _des_crypt(
+      in1,
+      out,
+      key,
+    );
+  }
+
+  late final _des_cryptPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<BYTE5>, ffi.Pointer<BYTE5>,
+              ffi.Pointer<ffi.Pointer<BYTE5>>)>>('des_crypt');
+  late final _des_crypt = _des_cryptPtr.asFunction<
+      void Function(ffi.Pointer<BYTE5>, ffi.Pointer<BYTE5>,
+          ffi.Pointer<ffi.Pointer<BYTE5>>)>();
+
+  void three_des_key_setup(
+    ffi.Pointer<BYTE5> key,
+    ffi.Pointer<ffi.Pointer<ffi.Pointer<BYTE5>>> schedule,
+    int mode,
+  ) {
+    return _three_des_key_setup(
+      key,
+      schedule,
+      mode,
+    );
+  }
+
+  late final _three_des_key_setupPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<BYTE5>,
+              ffi.Pointer<ffi.Pointer<ffi.Pointer<BYTE5>>>,
+              ffi.Int32)>>('three_des_key_setup');
+  late final _three_des_key_setup = _three_des_key_setupPtr.asFunction<
+      void Function(ffi.Pointer<BYTE5>,
+          ffi.Pointer<ffi.Pointer<ffi.Pointer<BYTE5>>>, int)>();
+
+  void three_des_crypt(
+    ffi.Pointer<BYTE5> in1,
+    ffi.Pointer<BYTE5> out,
+    ffi.Pointer<ffi.Pointer<ffi.Pointer<BYTE5>>> key,
+  ) {
+    return _three_des_crypt(
+      in1,
+      out,
+      key,
+    );
+  }
+
+  late final _three_des_cryptPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Pointer<BYTE5>, ffi.Pointer<BYTE5>,
+                  ffi.Pointer<ffi.Pointer<ffi.Pointer<BYTE5>>>)>>(
+      'three_des_crypt');
+  late final _three_des_crypt = _three_des_cryptPtr.asFunction<
+      void Function(ffi.Pointer<BYTE5>, ffi.Pointer<BYTE5>,
+          ffi.Pointer<ffi.Pointer<ffi.Pointer<BYTE5>>>)>();
+
+  /// FUNCTION DECLARATIONS
+  void md2_init(
+    ffi.Pointer<MD2_CTX> ctx,
+  ) {
+    return _md2_init(
+      ctx,
+    );
+  }
+
+  late final _md2_initPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<MD2_CTX>)>>(
+          'md2_init');
+  late final _md2_init =
+      _md2_initPtr.asFunction<void Function(ffi.Pointer<MD2_CTX>)>();
+
+  void md2_update(
+    ffi.Pointer<MD2_CTX> ctx,
+    ffi.Pointer<BYTE6> data,
+    int len,
+  ) {
+    return _md2_update(
+      ctx,
+      data,
+      len,
+    );
+  }
+
+  late final _md2_updatePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<MD2_CTX>, ffi.Pointer<BYTE6>,
+              ffi.Size)>>('md2_update');
+  late final _md2_update = _md2_updatePtr.asFunction<
+      void Function(ffi.Pointer<MD2_CTX>, ffi.Pointer<BYTE6>, int)>();
+
+  void md2_final(
+    ffi.Pointer<MD2_CTX> ctx,
+    ffi.Pointer<BYTE6> hash,
+  ) {
+    return _md2_final(
+      ctx,
+      hash,
+    );
+  }
+
+  late final _md2_finalPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<MD2_CTX>, ffi.Pointer<BYTE6>)>>('md2_final');
+  late final _md2_final = _md2_finalPtr
+      .asFunction<void Function(ffi.Pointer<MD2_CTX>, ffi.Pointer<BYTE6>)>();
+
+  /// FUNCTION DECLARATIONS
+  void md5_init(
+    ffi.Pointer<MD5_CTX> ctx,
+  ) {
+    return _md5_init(
+      ctx,
+    );
+  }
+
+  late final _md5_initPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<MD5_CTX>)>>(
+          'md5_init');
+  late final _md5_init =
+      _md5_initPtr.asFunction<void Function(ffi.Pointer<MD5_CTX>)>();
+
+  void md5_update(
+    ffi.Pointer<MD5_CTX> ctx,
+    ffi.Pointer<BYTE7> data,
+    int len,
+  ) {
+    return _md5_update(
+      ctx,
+      data,
+      len,
+    );
+  }
+
+  late final _md5_updatePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<MD5_CTX>, ffi.Pointer<BYTE7>,
+              ffi.Size)>>('md5_update');
+  late final _md5_update = _md5_updatePtr.asFunction<
+      void Function(ffi.Pointer<MD5_CTX>, ffi.Pointer<BYTE7>, int)>();
+
+  void md5_final(
+    ffi.Pointer<MD5_CTX> ctx,
+    ffi.Pointer<BYTE7> hash,
+  ) {
+    return _md5_final(
+      ctx,
+      hash,
+    );
+  }
+
+  late final _md5_finalPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<MD5_CTX>, ffi.Pointer<BYTE7>)>>('md5_final');
+  late final _md5_final = _md5_finalPtr
+      .asFunction<void Function(ffi.Pointer<MD5_CTX>, ffi.Pointer<BYTE7>)>();
+
+  /// FUNCTION DECLARATIONS **********************/
+  /// // Performs IN PLACE rotation of the input. Assumes input is NULL terminated.
+  /// // Preserves each charcter's case. Ignores non alphabetic characters.
+  void rot13(
+    ffi.Pointer<ffi.Char> str,
+  ) {
+    return _rot13(
+      str,
+    );
+  }
+
+  late final _rot13Ptr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
+          'rot13');
+  late final _rot13 =
+      _rot13Ptr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
+
+  /// FUNCTION DECLARATIONS
+  void sha1_init(
+    ffi.Pointer<SHA1_CTX> ctx,
+  ) {
+    return _sha1_init(
+      ctx,
+    );
+  }
+
+  late final _sha1_initPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<SHA1_CTX>)>>(
+          'sha1_init');
+  late final _sha1_init =
+      _sha1_initPtr.asFunction<void Function(ffi.Pointer<SHA1_CTX>)>();
+
+  void sha1_update(
+    ffi.Pointer<SHA1_CTX> ctx,
+    ffi.Pointer<BYTE8> data,
+    int len,
+  ) {
+    return _sha1_update(
+      ctx,
+      data,
+      len,
+    );
+  }
+
+  late final _sha1_updatePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<SHA1_CTX>, ffi.Pointer<BYTE8>,
+              ffi.Size)>>('sha1_update');
+  late final _sha1_update = _sha1_updatePtr.asFunction<
+      void Function(ffi.Pointer<SHA1_CTX>, ffi.Pointer<BYTE8>, int)>();
+
+  void sha1_final(
+    ffi.Pointer<SHA1_CTX> ctx,
+    ffi.Pointer<BYTE8> hash,
+  ) {
+    return _sha1_final(
+      ctx,
+      hash,
+    );
+  }
+
+  late final _sha1_finalPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<SHA1_CTX>, ffi.Pointer<BYTE8>)>>('sha1_final');
+  late final _sha1_final = _sha1_finalPtr
+      .asFunction<void Function(ffi.Pointer<SHA1_CTX>, ffi.Pointer<BYTE8>)>();
 }
 
 final class SHA256_CTX extends ffi.Struct {
@@ -99,4 +888,115 @@ typedef DartBYTE = int;
 typedef WORD = ffi.UnsignedInt;
 typedef DartWORD = int;
 
+/// DATA TYPES
+typedef BYTE1 = ffi.UnsignedChar;
+typedef DartBYTE1 = int;
+typedef WORD1 = ffi.UnsignedInt;
+typedef DartWORD1 = int;
+
+/// DATA TYPES
+typedef BYTE2 = ffi.UnsignedChar;
+typedef DartBYTE2 = int;
+
+/// DATA TYPES
+typedef BYTE3 = ffi.UnsignedChar;
+typedef DartBYTE3 = int;
+
+final class BLOWFISH_KEY extends ffi.Struct {
+  @ffi.Array.multi([18])
+  external ffi.Array<WORD2> p;
+
+  @ffi.Array.multi([4, 256])
+  external ffi.Array<ffi.Array<WORD2>> s;
+}
+
+typedef WORD2 = ffi.UnsignedInt;
+typedef DartWORD2 = int;
+
+/// DATA TYPES
+typedef BYTE4 = ffi.UnsignedChar;
+typedef DartBYTE4 = int;
+
+abstract class DES_MODE {
+  static const int DES_ENCRYPT = 0;
+  static const int DES_DECRYPT = 1;
+}
+
+/// DATA TYPES
+typedef BYTE5 = ffi.UnsignedChar;
+typedef DartBYTE5 = int;
+
+final class MD2_CTX extends ffi.Struct {
+  @ffi.Array.multi([16])
+  external ffi.Array<BYTE6> data;
+
+  @ffi.Array.multi([48])
+  external ffi.Array<BYTE6> state;
+
+  @ffi.Array.multi([16])
+  external ffi.Array<BYTE6> checksum;
+
+  @ffi.Int()
+  external int len;
+}
+
+/// DATA TYPES
+typedef BYTE6 = ffi.UnsignedChar;
+typedef DartBYTE6 = int;
+
+final class MD5_CTX extends ffi.Struct {
+  @ffi.Array.multi([64])
+  external ffi.Array<BYTE7> data;
+
+  @WORD3()
+  external int datalen;
+
+  @ffi.UnsignedLongLong()
+  external int bitlen;
+
+  @ffi.Array.multi([4])
+  external ffi.Array<WORD3> state;
+}
+
+/// DATA TYPES
+typedef BYTE7 = ffi.UnsignedChar;
+typedef DartBYTE7 = int;
+typedef WORD3 = ffi.UnsignedInt;
+typedef DartWORD3 = int;
+
+final class SHA1_CTX extends ffi.Struct {
+  @ffi.Array.multi([64])
+  external ffi.Array<BYTE8> data;
+
+  @WORD4()
+  external int datalen;
+
+  @ffi.UnsignedLongLong()
+  external int bitlen;
+
+  @ffi.Array.multi([5])
+  external ffi.Array<WORD4> state;
+
+  @ffi.Array.multi([4])
+  external ffi.Array<WORD4> k;
+}
+
+/// DATA TYPES
+typedef BYTE8 = ffi.UnsignedChar;
+typedef DartBYTE8 = int;
+typedef WORD4 = ffi.UnsignedInt;
+typedef DartWORD4 = int;
+
 const int SHA256_BLOCK_SIZE = 32;
+
+const int AES_BLOCK_SIZE = 16;
+
+const int BLOWFISH_BLOCK_SIZE = 8;
+
+const int DES_BLOCK_SIZE = 8;
+
+const int MD2_BLOCK_SIZE = 16;
+
+const int MD5_BLOCK_SIZE = 16;
+
+const int SHA1_BLOCK_SIZE = 20;

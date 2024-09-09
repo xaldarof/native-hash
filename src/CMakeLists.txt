@@ -7,6 +7,15 @@ project(native_hash_library VERSION 0.0.1 LANGUAGES C)
 
 add_library(native_hash SHARED
         "sha256.c"
+        "aes.c"
+        "arcfour.c"
+        "base64.c"
+        "blowfish.c"
+        "des.c"
+        "md2.c"
+        "md5.c"
+        "rot-13.c"
+        "sha1.c"
 )
 
 set_target_properties(native_hash PROPERTIES

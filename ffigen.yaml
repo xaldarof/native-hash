@@ -9,9 +9,27 @@ headers:
   entry-points:
     - 'src/native_hash.h'
     - 'src/sha256.h'
+    - "src/aes.h"
+    - "src/arcfour.h"
+    - "src/base64.h"
+    - "src/blowfish.h"
+    - "src/des.h"
+    - "src/md2.h"
+    - "src/md5.h"
+    - "src/rot-13.h"
+    - "src/sha1.h"
   include-directives:
     - 'src/native_hash.h'
     - 'src/sha256.h'
+    - "src/aes.h"
+    - "src/arcfour.h"
+    - "src/base64.h"
+    - "src/blowfish.h"
+    - "src/des.h"
+    - "src/md2.h"
+    - "src/md5.h"
+    - "src/rot-13.h"
+    - "src/sha1.h"
 preamble: |
   // ignore_for_file: always_specify_types
   // ignore_for_file: camel_case_types

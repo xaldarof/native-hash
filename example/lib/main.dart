@@ -1,5 +1,6 @@
 import 'dart:ffi';
 import 'dart:io';
+import 'dart:math';
 import 'package:ffi/ffi.dart' as ffi;
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -48,11 +49,13 @@ class _MyAppState extends State<MyApp> {
             child: Column(
               children: [
                 FloatingActionButton(onPressed: () {
-                  final bytes = File(
-                          '/data/data/com.example.native_hash_example/app_flutter/flutter_assets/kernel_blob.bin')
-                      .readAsBytesSync();
-                  _testNativeC(bytes);
-                  _testDart(bytes);
+                  final bytes =
+                      Uint8List.fromList('HellooooHelloooo'.codeUnits);
+                  // _testNativeAes(bytes);
+
+                  _testNativeSha256(bytes);
+                  _testNativeMD5(bytes);
+                  // _testDart(bytes);
                 })
               ],
             ),
@@ -62,31 +65,15 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  _testDart(Uint8List bytes) {
-    final start = DateTime.now();
-    final hash = sha256.convert(bytes);
-    final end = DateTime.now();
-    print((end.millisecondsSinceEpoch - start.millisecondsSinceEpoch));
-    print('Dart');
-    print(bytesToHex(Uint8List.fromList(hash.bytes)));
+  _testNativeSha256(Uint8List bytes) {
+    final res = NativeHashCore.sha256(bytes);
+
+    print('sha256 : ${bytesToHex(res)}');
   }
 
-  _testNativeC(Uint8List bytes) {
-    final start = DateTime.now();
-    final ctx = ffi.malloc<SHA256_CTX>(sizeOf<SHA256_CTX>());
+  _testNativeMD5(Uint8List bytes) {
+    final res = NativeHashCore.md5(bytes);
 
-    NativeHashCore.sha256Init(ctx);
-
-    NativeHashCore.sha256Update(ctx, bytes);
-
-    // Finalize and get the hash
-    Uint8List hash = Uint8List(32); // 256-bit hash
-    NativeHashCore.sha256Final(ctx, hash);
-
-    final end = DateTime.now();
-    // Print the hash
-    print((end.millisecondsSinceEpoch - start.millisecondsSinceEpoch));
-    print('C');
-    print(bytesToHex(hash));
+    print('md5 : ${bytesToHex(res)}');
   }
 }

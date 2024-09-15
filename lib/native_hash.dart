@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:isolate';
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:ffi/ffi.dart';
 
@@ -42,10 +43,58 @@ final DynamicLibrary _dylib = () {
 final NativeHashBindings _bindings = NativeHashBindings(_dylib);
 
 class NativeHashCore {
-  // Dart wrapper for the SHA-256 operations
-  static void sha256Init(Pointer<SHA256_CTX> ctx) => _bindings.sha256_init(ctx);
+  static Uint8List sha256(Uint8List data) {
+    final ctx = malloc<SHA256_CTX>(sizeOf<SHA256_CTX>());
+    _bindings.sha256_init(ctx);
+    _sha256Update(ctx, data);
+    Uint8List hash = Uint8List(32);
 
-  static void sha256Update(Pointer<SHA256_CTX> ctx, Uint8List data) {
+    _sha256Final(ctx, hash);
+    return hash;
+  }
+
+  static Uint8List md5(Uint8List data) {
+    final ctx = malloc<MD5_CTX>(sizeOf<MD5_CTX>());
+
+    _bindings.md5_init(ctx);
+
+    _md5Update(ctx, data);
+
+    Uint8List hash = Uint8List(16);
+
+    _md5Final(ctx, hash);
+
+    malloc.free(ctx);
+
+    return hash;
+  }
+
+  static void _md5Update(Pointer<MD5_CTX> ctx, Uint8List data) {
+    final Pointer<UnsignedChar> dataPtr =
+        malloc.allocate<UnsignedChar>(data.length);
+
+    for (int i = 0; i < data.length; i++) {
+      dataPtr[i] = data[i];
+    }
+
+    _bindings.md5_update(ctx, dataPtr, data.length);
+
+    malloc.free(dataPtr);
+  }
+
+  static void _md5Final(Pointer<MD5_CTX> ctx, Uint8List hash) {
+    final Pointer<UnsignedChar> hashPtr = malloc.allocate<UnsignedChar>(16);
+
+    _bindings.md5_final(ctx, hashPtr);
+
+    for (int i = 0; i < 16; i++) {
+      hash[i] = hashPtr[i];
+    }
+
+    malloc.free(hashPtr);
+  }
+
+  static void _sha256Update(Pointer<SHA256_CTX> ctx, Uint8List data) {
     final Pointer<UnsignedChar> dataPtr =
         malloc.allocate<UnsignedChar>(data.length);
     for (int i = 0; i < data.length; i++) {
@@ -55,7 +104,7 @@ class NativeHashCore {
     malloc.free(dataPtr);
   }
 
-  static void sha256Final(Pointer<SHA256_CTX> ctx, Uint8List hash) {
+  static void _sha256Final(Pointer<SHA256_CTX> ctx, Uint8List hash) {
     final Pointer<UnsignedChar> hashPtr =
         malloc.allocate<UnsignedChar>(32); // 256-bit hash
     _bindings.sha256_final(ctx, hashPtr);

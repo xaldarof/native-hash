@@ -44,13 +44,12 @@ class _MyAppState extends State<MyApp> {
             child: Column(
               children: [
                 FloatingActionButton(onPressed: () {
-                  final bytes = File(
-                          '/data/data/com.example.native_hash_example/app_flutter/RustRover-2024.1.8.exe')
-                      .readAsBytesSync();
-                  // _testNativeAes(bytes);
+                  final bytes = Uint8List.fromList('Hello'.codeUnits);
 
-                  // _testNativeSha256(bytes);
-                  // _testSha256(bytes);
+                  _testRot13();
+                  _testMd2(bytes);
+                  _testNativeSha256(bytes);
+                  _testNativeSha1(bytes);
                   _testNativeMD5(bytes);
                   _testMD5(bytes);
                   // _testDart(bytes);
@@ -63,16 +62,12 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  _testSh1(Uint8List bytes) {
-    NativeHashCore.sha1(bytes);
-  }
-
   _testMd2(Uint8List bytes) {
-    NativeHashCore.md2(bytes);
+    print("MD2 = ${bytesToHex(NativeHashCore.md2(bytes))}");
   }
 
   _testRot13() {
-    NativeHashCore.rot13("message");
+    print("Rot13 : ${NativeHashCore.rot13("Hello")}");
   }
 
   _testNativeSha256(Uint8List bytes) {
@@ -81,6 +76,14 @@ class _MyAppState extends State<MyApp> {
     final end = DateTime.now().millisecondsSinceEpoch;
     print('time ${end - start}ms');
     print('sha256 : ${bytesToHex(res)}');
+  }
+
+  _testNativeSha1(Uint8List bytes) {
+    final start = DateTime.now().millisecondsSinceEpoch;
+    final res = NativeHashCore.sha1(bytes);
+    final end = DateTime.now().millisecondsSinceEpoch;
+    print('time ${end - start}ms');
+    print('sha1 : ${bytesToHex(res)}');
   }
 
   _testSha256(Uint8List bytes) {

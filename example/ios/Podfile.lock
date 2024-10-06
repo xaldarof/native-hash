@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - native_hash (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - native_hash (from `.symlinks/plugins/native_hash/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  native_hash:
+    :path: ".symlinks/plugins/native_hash/ios"
+
+SPEC CHECKSUMS:
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  native_hash: 8ae0cfda400dfc39e481c7e647f7906307cf2f72
+
+PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+
+COCOAPODS: 1.15.2

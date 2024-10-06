@@ -91,16 +91,6 @@ class NativeHashCore {
     malloc.free(hashPtr);
   }
 
-  static void _sha256Update(Pointer<SHA256_CTX> ctx, Uint8List data) {
-    final Pointer<UnsignedChar> dataPtr =
-        malloc.allocate<UnsignedChar>(data.length);
-    for (int i = 0; i < data.length; i++) {
-      dataPtr[i] = data[i];
-    }
-    _bindings.sha256_update(ctx, dataPtr, data.length);
-    malloc.free(dataPtr);
-  }
-
   static void _sha256Final(Pointer<SHA256_CTX> ctx, Uint8List hash) {
     final Pointer<UnsignedChar> hashPtr = malloc.allocate<UnsignedChar>(32);
     _bindings.sha256_final(ctx, hashPtr);
@@ -159,16 +149,24 @@ class NativeHashCore {
     }
   }
 
-  static void _sha1Update(Pointer<SHA1_CTX> ctx, Uint8List data) {
-    final dataPtr = malloc<BYTE3>(data.length);
-    try {
-      for (int i = 0; i < 32; i++) {
-        dataPtr[i] = data[i];
-      }
-      _bindings.sha1_update(ctx, dataPtr, data.length);
-    } finally {
-      malloc.free(dataPtr);
+  static void _sha256Update(Pointer<SHA256_CTX> ctx, Uint8List data) {
+    final Pointer<UnsignedChar> dataPtr =
+        malloc.allocate<UnsignedChar>(data.length);
+    for (int i = 0; i < data.length; i++) {
+      dataPtr[i] = data[i];
     }
+    _bindings.sha256_update(ctx, dataPtr, data.length);
+    malloc.free(dataPtr);
+  }
+
+  static void _sha1Update(Pointer<SHA1_CTX> ctx, Uint8List data) {
+    final Pointer<UnsignedChar> dataPtr =
+        malloc.allocate<UnsignedChar>(data.length);
+    for (int i = 0; i < data.length; i++) {
+      dataPtr[i] = data[i];
+    }
+    _bindings.sha1_update(ctx, dataPtr, data.length);
+    malloc.free(dataPtr);
   }
 
   static String rot13(String input) {

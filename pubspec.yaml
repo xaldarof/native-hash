@@ -1,7 +1,7 @@
 name: native_hash
 description: "A new Flutter FFI plugin project."
 version: 0.0.1
-homepage:
+homepage: https://github.com/xaldarof/native-hash.git
 
 environment:
   sdk: '>=3.4.4 <4.0.0'
@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
 
+  ffi: any
 dev_dependencies:
-  ffi: ^2.1.0
   ffigen: ^11.0.0
   flutter_test:
     sdk: flutter
